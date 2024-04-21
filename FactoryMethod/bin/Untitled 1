@@ -1,0 +1,160 @@
+In the given question the point 2, we were asked to make a TriangleGeomtry class
+basically add a new shape to extend the functionality. Now to do this we created the Triangle class
+which is basically returning the triangle shape 
+
+in the demo class we created the object of the TriangleGeometry and through that object we called 
+createShape method and pushed that shape into the ArrayList and then we printed out the list using
+for loop
+
+here is the code of Demo.java class after adding the new Triangle shape 
+
+import java.util.ArrayList;
+
+public class Demo {
+
+	public static void main(String[] args) {
+		ArrayList<Shape> shapes = new ArrayList<Shape>();
+		
+		CircleGeometry cricleGeomerty = new CircleGeometry();
+		SquareGeometry squareGeometry = new SquareGeometry();
+		TriangleGeometry triangleGeometry = new TriangleGeometry();
+		
+		shapes.add(cricleGeomerty.createShape());
+		shapes.add(squareGeometry.createShape());
+		shapes.add(triangleGeometry.createShape());
+		
+		for(Shape s:shapes){
+			s.draw();
+		}
+
+	}
+
+} 
+
+
+now for the point 3 we were asked to implement it through the factory method, now the factory method
+is the method in simple words if we define it for example if we have a factories of some sort and we have 
+a factory for each product which return the product now that's cumbersome what if we create a single factory which 
+would return every product that we need that is factory method
+
+
+Now to implement the factory method with a single we created a ShapeFactory.java which return every 
+shape. in this method we don't need Geometry, TriangleGeometry, CircleGeometry, SquareGeometry because we have the ShapeFactory
+which is returning a shapes on the basis of createShape() and the type we passed through
+
+here in the implementation of the shapes factory
+
+
+
+import java.util.ArrayList;
+
+public class MainApplication {
+	public static void main(String[] args) {
+		ArrayList<Shape> shapes = new ArrayList<Shape>();
+		
+		shapes.add(ShapeFactory.createShape("Circle"));
+		shapes.add(ShapeFactory.createShape("Square"));
+		shapes.add(ShapeFactory.createShape("triangle"));
+		
+		for(Shape s:shapes){
+			s.draw();
+		}
+
+	}
+}
+
+
+public class ShapeFactory {
+    public static Shape createShape(String type) {
+        switch (type.toLowerCase()) {
+            case "circle":
+                return new Circle();
+            case "square":
+                return new Square();
+            case "triangle":
+                return new Triangle();
+            default:
+                throw new IllegalArgumentException("Invalid shape type: " + type);
+        }
+    }
+}
+
+
+
+Now as you can see in the MainApplication we are passing the name or the type of the shape and on the basis of that 
+we are getting a shape through the ShapeFactory
+
+
+
+
+
+For the Point 4.1 we were just asked to run the example but in the 4.2 we have to convert the C# code to the Java
+We have to understand the code in the given code there are two factories PersonFacotry and PhoneFactory and I added one more 
+concrete factory for my understanding of the code.  
+
+We have two types of the Persons The Villager and the CityPerson and we create these person using 
+PersonFactory by passing the type of the Person Rural, or Urban and we have defined the types of the person
+in the PersonType class which is of the enum type in which we basically define the same type of Constants
+
+The Person are being generated through the type we passed through the PersonFactory and that return the person here is the implementation of it 
+
+package examples;
+
+public class Main {
+    public static void main(String[] args) {
+
+        PersonFactory personFactory = new PersonFactory();
+        
+        IPerson ruralPerson = personFactory.getPerson(PersonType.Rural);
+        System.out.println("Rural person: " + ruralPerson.getName());
+        
+        IPerson urbanPerson = personFactory.getPerson(PersonType.Urban);
+        System.out.println("Urban person: " + urbanPerson.getName());
+
+
+    }
+}
+
+
+
+First we create the PersonFactory object then we are simply passing the type of the Person we want to Generate to the factory
+and then we are printing the object
+
+Now for the second factory we have and AbstractFactory and a ConcreteFactory for both Phone and Tablet ( I have added one more Product for my personal understanding of t
+the code ). Abstract have the abstract method makeProduct() which is the implementation of the IProduct interface and the getObect() returns the product we create through the makeProduct()
+ConcreteFacory is the implementation of the AbstractFactory from which we basically create the product similarly the TabletConcreteFactory works the same way
+
+Here is the implementation of the both factories together    
+
+public class Main {
+    public static void main(String[] args) {
+
+        PersonFactory personFactory = new PersonFactory();
+        IPerson ruralPerson = personFactory.getPerson(PersonType.Rural);
+        System.out.println("Rural person: " + ruralPerson.getName());
+        IPerson urbanPerson = personFactory.getPerson(PersonType.Urban);
+        System.out.println("Urban person: " + urbanPerson.getName());
+
+
+        ProductAbstractFactory phoneFactory = new PhoneConcreteFactory();
+        ProductAbstractFactory tabletFactory = new TabletConcreteFactory();
+        
+        
+        IProduct phone = phoneFactory.getObject();
+        IProduct tablet = tabletFactory.getObject();
+        System.out.println("Phone name: " + phone.getName());
+        System.out.println("Phone price: $" + phone.getPrice());
+        System.out.println("Phone Color: " + phone.getColor());
+        
+        System.out.println("Tablet name: " + tablet.getName());
+        System.out.println("Tablet price: $" + tablet.getPrice());
+        System.out.println("Tablet Color: " + tablet.getColor());
+    }
+}
+
+
+
+
+
+
+
